@@ -1,3 +1,4 @@
+import { getSettings } from "@/app/actions/settings";
 import { SettingsForm } from "@/components/settings-form";
 import { Settings } from "lucide-react";
 

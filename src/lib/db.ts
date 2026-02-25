@@ -16,14 +16,12 @@ declare global {
 }
 
 function createPrismaClient(): PrismaClient {
-  const libsql = createClient({
+  const adapter = new PrismaLibSql({
     url: process.env.TURSO_DATABASE_URL!,
     authToken: process.env.TURSO_AUTH_TOKEN ?? '',
   })
 
-  const adapter = new PrismaLibSql(libsql)
-
-  return new PrismaClient({ adapter } as ConstructorParameters<typeof PrismaClient>[0])
+  return new PrismaClient({ adapter } as any)
 }
 
 export const db: PrismaClient =

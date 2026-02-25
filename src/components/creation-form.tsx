@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Sparkles, Play, Video, Terminal, Loader2 } from "lucide-react";
+import { Sparkles, Play, Video, Terminal, Loader2, Wand2 } from "lucide-react";
 import Link from "next/link";
 import { generateContent } from "@/app/actions/generate";
 import { ScriptPreview } from "./script-preview";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 interface CreationFormProps {
     hasKeys: boolean;
@@ -17,7 +19,6 @@ export function CreationForm({ hasKeys, isAnimeMode }: CreationFormProps) {
     const [error, setError] = useState<string | null>(null);
     const [sceneCount, setSceneCount] = useState(3);
 
-    // Mapeamento de atmosferas para o seletor visual
     const atmospheres = [
         { id: "action", label: "Ação", icon: "🔥" },
         { id: "mystery", label: "Mistério", icon: "👁️" },
@@ -58,54 +59,60 @@ export function CreationForm({ hasKeys, isAnimeMode }: CreationFormProps) {
     }
 
     return (
-        <div className="w-full flex flex-col items-center animate-fade-up">
-            <div className="w-full max-w-5xl glass p-8 rounded-[40px] md:p-10 shadow-3xl relative overflow-hidden border-white/5">
-                {/* Badge de Modo */}
-                <div className="flex justify-end mb-6">
+        <div className="w-full flex flex-col items-center animate-slide">
+            <div className="w-full max-w-5xl bg-slate-900/40 p-10 rounded-[2.5rem] border border-white/5 backdrop-blur-md relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 rounded-full blur-[80px]"></div>
+
+                {/* Header do Form */}
+                <div className="flex items-center justify-between mb-12">
+                    <div className="space-y-1">
+                        <h2 className="text-2xl font-black font-heading tracking-tight text-white flex items-center gap-2 italic">
+                            <Wand2 className="text-blue-500" size={24} /> Criador de Fluxo
+                        </h2>
+                        <p className="text-xs font-medium text-slate-500 uppercase tracking-widest">Orquestração de Inteligência Artificial</p>
+                    </div>
                     {isAnimeMode ? (
-                        <div className="bg-rose-500/10 text-rose-400 px-4 py-1.5 rounded-full text-[10px] font-black tracking-[0.2em] border border-rose-500/20 flex items-center gap-2 uppercase">
-                            <Sparkles size={12} />
+                        <Badge className="bg-rose-500/10 text-rose-400 border-rose-500/20 px-4 py-1.5 rounded-xl text-[10px] font-bold tracking-widest uppercase">
                             Direção: Estúdio Anime
-                        </div>
+                        </Badge>
                     ) : (
-                        <div className="bg-indigo-500/10 text-indigo-400 px-4 py-1.5 rounded-full text-[10px] font-black tracking-[0.2em] border border-indigo-500/20 flex items-center gap-2 uppercase">
-                            <Video size={12} />
+                        <Badge className="bg-blue-500/10 text-blue-400 border-blue-500/20 px-4 py-1.5 rounded-xl text-[10px] font-bold tracking-widest uppercase">
                             Direção: Cinematográfico
-                        </div>
+                        </Badge>
                     )}
                 </div>
 
-                <form action={handleSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                <form action={handleSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-10">
                     {/* Coluna 1: Ajustes Técnicos */}
-                    <div className="lg:col-span-4 space-y-8">
-                        <div className="space-y-4">
-                            <label className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em] flex items-center gap-2">
-                                <Sparkles size={14} className="text-indigo-400" />
+                    <div className="lg:col-span-4 space-y-10">
+                        <div className="space-y-5">
+                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] flex items-center gap-2 ml-1">
+                                <Sparkles size={14} className="text-blue-500" />
                                 Atmosfera
                             </label>
-                            <div className="grid grid-cols-2 gap-2">
+                            <div className="grid grid-cols-2 gap-3">
                                 {atmospheres.map((atm) => (
                                     <label
                                         key={atm.id}
                                         className="relative group cursor-pointer"
                                     >
                                         <input type="radio" name="atmosphere" value={atm.id} className="sr-only peer" defaultChecked={atm.id === 'action'} />
-                                        <div className="p-3 rounded-xl bg-white/5 border border-white/5 text-center transition-all peer-checked:bg-white/10 peer-checked:border-indigo-500/50 peer-checked:text-indigo-400 hover:bg-white/10 group-active:scale-95">
-                                            <span className="block text-xl mb-1">{atm.icon}</span>
-                                            <span className="text-[10px] font-bold uppercase tracking-wider">{atm.label}</span>
+                                        <div className="p-4 rounded-3xl bg-slate-800/50 border border-white/5 text-center transition-all peer-checked:bg-blue-600 peer-checked:border-blue-500 peer-checked:text-white hover:bg-slate-800 group-active:scale-95 shadow-lg">
+                                            <span className="block text-3xl mb-2 group-hover:scale-110 transition-transform">{atm.icon}</span>
+                                            <span className="text-[10px] font-black uppercase tracking-widest">{atm.label}</span>
                                         </div>
                                     </label>
                                 ))}
                             </div>
                         </div>
 
-                        <div className="space-y-4">
+                        <div className="space-y-6">
                             <div className="flex justify-between items-center">
-                                <label className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em] flex items-center gap-2">
-                                    <Video size={14} className="text-indigo-400" />
+                                <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] flex items-center gap-2 ml-1">
+                                    <Video size={14} className="text-blue-500" />
                                     Cenas
                                 </label>
-                                <span className="text-xs font-black text-indigo-400">{sceneCount} QUADROS</span>
+                                <Badge variant="outline" className="text-[10px] font-black border-blue-500/20 text-blue-400">{sceneCount} QUADROS</Badge>
                             </div>
                             <input
                                 type="range"
@@ -114,9 +121,9 @@ export function CreationForm({ hasKeys, isAnimeMode }: CreationFormProps) {
                                 max="5"
                                 value={sceneCount}
                                 onChange={(e) => setSceneCount(parseInt(e.target.value))}
-                                className="w-full h-1 bg-white/10 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+                                className="w-full h-1.5 bg-slate-800 rounded-full appearance-none cursor-pointer accent-blue-500"
                             />
-                            <div className="flex justify-between text-[8px] font-black text-white/20 uppercase tracking-widest">
+                            <div className="flex justify-between text-[8px] font-black text-slate-600 uppercase tracking-widest">
                                 <span>Rápido</span>
                                 <span>Completo</span>
                             </div>
@@ -124,47 +131,52 @@ export function CreationForm({ hasKeys, isAnimeMode }: CreationFormProps) {
                     </div>
 
                     {/* Coluna 2: Briefing */}
-                    <div className="lg:col-span-8 flex flex-col space-y-6">
-                        <div className="flex-1 space-y-3">
-                            <label className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em] flex items-center gap-2 pl-1">
-                                <Terminal size={14} className="text-indigo-400" />
+                    <div className="lg:col-span-8 flex flex-col space-y-10">
+                        <div className="flex-1 space-y-4">
+                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] flex items-center gap-2 pl-1">
+                                <Terminal size={14} className="text-blue-500" />
                                 Roteiro Base (Briefing)
                             </label>
-                            <div className="relative glow-border h-full min-h-[220px]">
+                            <div className="h-full min-h-[300px] relative">
                                 <textarea
                                     name="briefing"
                                     required
                                     disabled={loading}
-                                    placeholder="Descreva a alma da sua história aqui..."
-                                    className="w-full h-full p-8 bg-black/40 border border-white/5 rounded-[24px] focus:border-indigo-500/30 transition-all resize-none text-lg text-white/90 placeholder:text-white/10 disabled:opacity-50 font-medium leading-relaxed"
+                                    placeholder="Descreva sua visão narrativa... Ex: Um robô descobrindo o amor em uma Tóquio cyberpunk."
+                                    className="w-full h-full p-8 bg-slate-950/50 border border-white/5 rounded-[2rem] focus:border-blue-500/50 focus:ring-0 transition-all resize-none text-base text-white placeholder:text-slate-600 disabled:opacity-50 font-medium leading-relaxed italic"
                                 />
+                                <div className="absolute bottom-6 right-6 opacity-20 pointer-events-none">
+                                    <Sparkles size={40} className="text-blue-500" />
+                                </div>
                             </div>
                         </div>
 
-                        <div className="flex flex-col md:flex-row items-center gap-4">
-                            <button
+                        <div className="flex flex-col md:flex-row items-center gap-5">
+                            <Button
                                 type="submit"
                                 disabled={loading || !hasKeys}
-                                className="flex-1 w-full h-16 bg-white text-black hover:bg-white/90 rounded-2xl font-black text-sm tracking-[0.2em] flex items-center justify-center gap-3 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed group"
+                                size="lg"
+                                className="flex-1 w-full h-16 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-black text-[10px] tracking-[0.25em] uppercase flex items-center justify-center gap-3 shadow-xl shadow-blue-600/20 transition-all active:scale-[0.98] disabled:opacity-50 group italic"
                             >
                                 {loading ? (
                                     <>
-                                        <Loader2 className="animate-spin" size={20} />
+                                        <Loader2 className="animate-spin" size={18} />
                                         ORQUESTRANDO IA...
                                     </>
                                 ) : (
                                     <>
-                                        <Play fill="black" size={18} className="group-hover:translate-x-1 transition-transform" />
+                                        <Play fill="white" size={16} className="group-hover:translate-x-1 transition-transform" />
                                         INICIAR PRODUÇÃO
                                     </>
                                 )}
-                            </button>
-                            <Link
-                                href="/settings"
-                                className="w-full md:w-auto px-10 h-16 glass rounded-2xl flex items-center justify-center gap-2 text-[10px] font-black tracking-[0.2em] uppercase hover:bg-white/5 transition-all text-white/50 hover:text-white"
-                            >
-                                <Terminal size={14} />
-                                Painel
+                            </Button>
+                            <Link href="/logs" className="w-full md:w-auto">
+                                <Button
+                                    variant="outline"
+                                    className="w-full md:w-auto px-10 h-16 bg-slate-800/50 border-white/5 rounded-2xl flex items-center justify-center gap-2 text-[10px] font-black tracking-[0.2em] uppercase hover:bg-slate-800 transition-all text-slate-400 hover:text-white"
+                                >
+                                    Painel
+                                </Button>
                             </Link>
                         </div>
                     </div>
@@ -172,33 +184,35 @@ export function CreationForm({ hasKeys, isAnimeMode }: CreationFormProps) {
 
                 {/* Status de Loading Refinado */}
                 {loading && (
-                    <div className="mt-8 pt-8 border-t border-white/5 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <div className="flex flex-col items-center gap-4">
-                            <div className="flex items-center gap-8">
-                                <div className="flex flex-col items-center gap-2">
-                                    <div className="w-8 h-8 rounded-full border-2 border-indigo-500 border-t-transparent animate-spin"></div>
-                                    <span className="text-[10px] font-black text-indigo-400 tracking-widest">PENSANDO</span>
+                    <div className="mt-12 pt-10 border-t border-white/5 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                        <div className="flex flex-col items-center gap-8">
+                            <div className="flex items-center gap-12">
+                                <div className="flex flex-col items-center gap-3">
+                                    <div className="w-12 h-12 rounded-2xl bg-blue-600/10 text-blue-500 border border-blue-500/20 flex items-center justify-center shadow-lg shadow-blue-500/5">
+                                        <Loader2 className="animate-spin" size={24} />
+                                    </div>
+                                    <span className="text-[10px] font-black text-blue-400 tracking-widest uppercase italic">Neural Syncing</span>
                                 </div>
-                                <div className="w-px h-8 bg-white/10"></div>
-                                <div className="flex flex-col items-center gap-2 text-white/20">
-                                    <div className="w-8 h-8 rounded-full border-2 border-white/10 flex items-center justify-center text-[10px]">2</div>
-                                    <span className="text-[10px] font-black tracking-widest uppercase">Pintando</span>
+                                <div className="w-8 h-[2px] bg-slate-800"></div>
+                                <div className="flex flex-col items-center gap-3 opacity-20">
+                                    <div className="w-12 h-12 rounded-2xl bg-slate-800 text-slate-400 border border-white/5 flex items-center justify-center font-black text-xs">02</div>
+                                    <span className="text-[10px] font-black tracking-widest uppercase italic">Visuals</span>
                                 </div>
-                                <div className="w-px h-8 bg-white/10"></div>
-                                <div className="flex flex-col items-center gap-2 text-white/20">
-                                    <div className="w-8 h-8 rounded-full border-2 border-white/10 flex items-center justify-center text-[10px]">3</div>
-                                    <span className="text-[10px] font-black tracking-widest uppercase">Finalizando</span>
+                                <div className="w-8 h-[2px] bg-slate-800"></div>
+                                <div className="flex flex-col items-center gap-3 opacity-20">
+                                    <div className="w-12 h-12 rounded-2xl bg-slate-800 text-slate-400 border border-white/5 flex items-center justify-center font-black text-xs">03</div>
+                                    <span className="text-[10px] font-black tracking-widest uppercase italic">Motion</span>
                                 </div>
                             </div>
-                            <p className="text-xs font-bold text-white/30 italic">Isso pode levar até 30 segundos enquanto a IA cria seu universo...</p>
+                            <p className="text-[11px] font-semibold text-slate-500 italic max-w-sm text-center leading-relaxed">Sincronizando modelos de rede neural v14... <br /> <span className="text-blue-500/50">Diretor IA está compondo as cenas iniciais.</span></p>
                         </div>
                     </div>
                 )}
 
                 {error && (
-                    <div className="mt-6 text-center p-4 bg-rose-500/10 border border-rose-500/20 rounded-2xl flex items-center justify-center gap-3">
-                        <div className="w-2 h-2 bg-rose-500 rounded-full animate-pulse"></div>
-                        <p className="text-rose-400 text-xs font-bold tracking-wide">{error}</p>
+                    <div className="mt-10 p-6 bg-red-500/5 border border-red-500/20 rounded-3xl flex items-center justify-center gap-3 animate-in shake duration-500">
+                        <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                        <p className="text-red-400 text-[11px] font-black uppercase tracking-widest italic">{error}</p>
                     </div>
                 )}
             </div>

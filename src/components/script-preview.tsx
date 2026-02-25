@@ -1,6 +1,8 @@
 "use client";
 
-import { Sparkles, Type, Image as ImageIcon, Film } from "lucide-react";
+import { Sparkles, Type, Image as ImageIcon, Film, Play, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 interface ScriptPreviewProps {
     script: {
@@ -17,83 +19,86 @@ interface ScriptPreviewProps {
 
 export function ScriptPreview({ script }: ScriptPreviewProps) {
     return (
-        <div className="w-full max-w-5xl mx-auto space-y-16 py-20 animate-fade-up">
-            <div className="text-center space-y-6 relative">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-indigo-500/10 blur-[120px] rounded-full -z-10"></div>
-                <h2 className="text-5xl font-black outfit tracking-tighter">
-                    {script.title}
-                </h2>
-                <div className="flex items-center justify-center gap-4">
-                    <div className="h-px w-12 bg-white/10"></div>
-                    <p className="text-white/40 font-medium tracking-widest text-[10px] uppercase">
-                        Sussurro da alma (Sinopse)
-                    </p>
-                    <div className="h-px w-12 bg-white/10"></div>
+        <div className="w-full max-w-5xl mx-auto space-y-24 py-24 animate-slide">
+            <div className="text-center space-y-8 relative">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/10 blur-[150px] rounded-full -z-10"></div>
+                <div className="flex flex-col items-center gap-6">
+                    <Badge variant="outline" className="px-5 py-1.5 border-blue-500/30 text-blue-400 bg-blue-500/5 rounded-full text-[10px] font-bold tracking-[0.4em] uppercase">
+                        Master Blueprint v2.0
+                    </Badge>
+                    <h2 className="text-7xl font-black font-heading tracking-tighter text-white max-w-4xl leading-[1.1] italic">
+                        {script.title}
+                    </h2>
                 </div>
-                <p className="text-white/70 italic text-xl max-w-3xl mx-auto leading-relaxed">
+                <div className="flex items-center justify-center gap-6">
+                    <div className="h-px w-24 bg-white/5"></div>
+                    <p className="text-slate-500 font-black tracking-[0.3em] text-[10px] uppercase italic">
+                        Visão Narrativa (Synopsis)
+                    </p>
+                    <div className="h-px w-24 bg-white/5"></div>
+                </div>
+                <p className="text-slate-400 text-2xl max-w-3xl mx-auto leading-relaxed font-medium italic">
                     "{script.synopsis}"
                 </p>
             </div>
 
-            <div className="space-y-32">
+            <div className="space-y-40">
                 {script.scenes.map((scene) => (
-                    <div key={scene.order} className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-                        <div className={`lg:col-span-5 space-y-8 ${scene.order % 2 === 0 ? 'lg:order-2' : ''}`}>
-                            <div className="space-y-4">
-                                <div className="flex items-center gap-4">
-                                    <span className="flex-none w-12 h-12 rounded-2xl bg-white/5 border border-white/10 text-white flex items-center justify-center font-black text-xl outfit">
+                    <div key={scene.order} className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-center">
+                        <div className={`lg:col-span-5 space-y-10 ${scene.order % 2 === 0 ? 'lg:order-2' : ''}`}>
+                            <div className="space-y-6">
+                                <div className="flex items-center gap-5">
+                                    <span className="flex-none w-16 h-16 rounded-[1.25rem] bg-blue-600 text-white flex items-center justify-center font-black text-2xl font-heading shrink-0 shadow-xl shadow-blue-600/20 italic">
                                         {scene.order.toString().padStart(2, '0')}
                                     </span>
                                     <div className="h-px flex-1 bg-white/5"></div>
-                                    <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-400/80">
-                                        Roteiro Técnico
-                                    </h3>
+                                    <Badge variant="outline" className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 border-white/5">
+                                        Frame Direction
+                                    </Badge>
                                 </div>
-                                <p className="text-2xl leading-snug font-medium text-white/90">
+                                <h3 className="text-4xl leading-tight font-black font-heading text-white italic">
                                     {scene.description}
-                                </p>
+                                </h3>
                             </div>
 
-                            <div className="p-6 bg-white/[0.02] rounded-3xl border border-white/5 space-y-3">
-                                <span className="text-[9px] font-black text-white/20 uppercase tracking-[0.2em] flex items-center gap-2">
-                                    <Sparkles size={12} className="text-amber-500/50" />
-                                    Diretrizes para IA (Visual Prompt)
+                            <div className="p-8 bg-slate-900/50 rounded-[2.5rem] border border-white/5 space-y-5 backdrop-blur-sm">
+                                <span className="text-[9px] font-black text-blue-400 uppercase tracking-[0.3em] flex items-center gap-2">
+                                    <Sparkles size={12} className="text-blue-500" />
+                                    Prompt de Engenharia Visual
                                 </span>
-                                <p className="text-xs text-white/40 italic leading-relaxed">
+                                <p className="text-sm text-slate-500 font-medium leading-relaxed italic">
                                     {scene.visualPrompt}
                                 </p>
                             </div>
                         </div>
 
                         <div className="lg:col-span-7 relative group">
-                            {/* Reflexo Premium */}
-                            <div className="absolute -top-10 -right-10 w-40 h-40 bg-rose-500/5 blur-[80px] rounded-full -z-10 group-hover:bg-rose-500/10 transition-colors"></div>
-
-                            <div className="relative glass rounded-[40px] overflow-hidden aspect-[16/9] flex items-center justify-center bg-black/40 border border-white/10 shadow-3xl transition-transform duration-700 group-hover:scale-[1.01]">
+                            <div className="relative bg-slate-950 rounded-[3rem] overflow-hidden aspect-[16/9] flex items-center justify-center border border-white/5 shadow-2xl transition-all duration-700 group-hover:scale-[1.02] group-hover:border-blue-500/20">
                                 {scene.image ? (
                                     <img
                                         src={scene.image}
                                         alt={`Preview cena ${scene.order}`}
-                                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                     />
                                 ) : (
-                                    <div className="flex flex-col items-center gap-4 text-white/10">
-                                        <ImageIcon size={64} strokeWidth={1} />
-                                        <span className="text-[10px] font-black tracking-[0.4em] uppercase">Renderizando Frame</span>
+                                    <div className="flex flex-col items-center gap-6 text-slate-800">
+                                        <div className="w-20 h-20 rounded-[2rem] bg-slate-900 border border-white/5 flex items-center justify-center shadow-inner">
+                                            <ImageIcon size={40} className="text-slate-700" />
+                                        </div>
+                                        <span className="text-[10px] font-black tracking-[0.5em] uppercase animate-pulse">Neural Render Engine</span>
                                     </div>
                                 )}
 
-                                {/* Badge de Overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                                <div className="absolute bottom-6 right-6 flex items-center gap-3 bg-black/60 backdrop-blur-2xl px-5 py-2.5 rounded-2xl border border-white/10 shadow-2xl">
-                                    <div className="flex gap-1">
-                                        <div className="w-1 h-3 bg-rose-500/40 rounded-full animate-bounce"></div>
-                                        <div className="w-1 h-5 bg-rose-500 rounded-full animate-bounce [animation-delay:0.2s]"></div>
-                                        <div className="w-1 h-3 bg-rose-500/40 rounded-full animate-bounce [animation-delay:0.4s]"></div>
+                                <div className="absolute bottom-10 right-10 flex items-center gap-5 bg-slate-900/90 backdrop-blur-2xl px-8 py-4 rounded-[1.5rem] border border-white/10 shadow-2xl transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                                    <div className="flex gap-2">
+                                        <div className="w-2 h-5 bg-blue-500/20 rounded-full animate-bounce"></div>
+                                        <div className="w-2 h-8 bg-blue-600 rounded-full animate-bounce [animation-delay:0.2s]"></div>
+                                        <div className="w-2 h-5 bg-blue-500/20 rounded-full animate-bounce [animation-delay:0.4s]"></div>
                                     </div>
-                                    <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/90">Aguar. Luma AI</span>
-                                    <Film size={14} className="text-white/40" />
+                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white italic">Otimizando Frame</span>
+                                    <Film size={18} className="text-slate-500" />
                                 </div>
                             </div>
                         </div>
@@ -101,14 +106,15 @@ export function ScriptPreview({ script }: ScriptPreviewProps) {
                 ))}
             </div>
 
-            <div className="pt-20 border-t border-white/5 text-center flex flex-col items-center gap-6">
-                <div className="space-y-2">
-                    <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.4em]">Finalização Mestre</p>
-                    <h3 className="text-2xl font-bold">Pronto para a imersão total?</h3>
+            {/* CTA Final */}
+            <div className="pt-32 border-t border-white/5 text-center flex flex-col items-center gap-10">
+                <div className="space-y-4">
+                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.6em]">Finalização Industrial Platinum</p>
+                    <h3 className="text-5xl font-black font-heading tracking-tight text-white italic">Pronto para a premiere global?</h3>
                 </div>
-                <button className="px-16 h-20 bg-gradient-to-r from-indigo-600 to-rose-600 rounded-[28px] font-black text-sm tracking-[0.3em] uppercase hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-indigo-500/20 hover:shadow-indigo-500/40 border border-white/20">
-                    GERAR VÍDEO COMPLETO
-                </button>
+                <Button size="lg" className="h-20 px-16 bg-blue-600 hover:bg-blue-500 text-white rounded-[2rem] font-black text-[12px] tracking-[0.3em] uppercase transition-all shadow-2xl shadow-blue-600/30 group italic">
+                    <Play className="mr-3 fill-white" size={20} /> INICIAR RENDERIZAÇÃO 4K <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-2 transition-transform" />
+                </Button>
             </div>
         </div>
     );

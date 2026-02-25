@@ -25,12 +25,12 @@ export function CreationForm({ hasKeys, isAnimeMode }: CreationFormProps) {
 
         try {
             const res = await generateContent(formData);
-            if (res.success) {
-                // Formata os dados para o ScriptPreview
+            if (res.success && res.data?.script) {
+                // Formata os dados para o ScriptPreview com segurança
                 const formattedScript = {
                     title: res.data.script.title,
                     synopsis: res.data.script.synopsis,
-                    scenes: res.data.scenes.map((s: any) => ({
+                    scenes: (res.data.scenes || []).map((s: any) => ({
                         order: s.order,
                         description: s.description,
                         visualPrompt: s.visualPrompt,
@@ -39,7 +39,7 @@ export function CreationForm({ hasKeys, isAnimeMode }: CreationFormProps) {
                 };
                 setResult(formattedScript);
             } else {
-                setError(res.error || "Ocorreu um erro inesperado.");
+                setError(res.error || "Ocorreu um erro inesperado na geração.");
             }
         } catch (err) {
             setError("Falha na comunicação com o servidor.");

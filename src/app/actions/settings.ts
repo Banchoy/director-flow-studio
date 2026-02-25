@@ -4,7 +4,7 @@ import { auth } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 
-export async function saveSettings(formData: FormData) {
+export async function saveSettings(prevState: any, formData: FormData) {
     const { userId } = await auth();
 
     if (!userId) {

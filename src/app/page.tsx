@@ -1,159 +1,107 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Sparkles, Video, Terminal, Play, ArrowRight, Zap, Layers, Cpu } from "lucide-react";
-import Link from "next/link";
+import {
+    Users,
+    Zap,
+    TrendingUp,
+    Activity,
+    BrainCircuit,
+    ArrowUpRight
+} from "lucide-react";
+import { cn } from "@/lib/utils";
 
-export default function LandingPage() {
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.2,
-                delayChildren: 0.3,
-            },
-        },
-    };
-
-    const itemVariants = {
-        hidden: { y: 20, opacity: 0 },
-        visible: {
-            y: 0,
-            opacity: 1,
-            transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
-        },
-    };
+export default function DashboardPage() {
+    const stats = [
+        { label: "Agentes Ativos", value: "12", trend: "+14%", detail: "Inteligências em execução", icon: BrainCircuit, color: "text-blue-600", bg: "bg-blue-50" },
+        { label: "Requisições de IA", value: "142.5k", trend: "+8.2%", detail: "Processamento mensal", icon: Zap, color: "text-purple-600", bg: "bg-purple-50" },
+        { label: "Membros da Equipe", value: "8", trend: "+2", detail: "Colaboradores ativos", icon: Users, color: "text-orange-600", bg: "bg-orange-50" },
+        { label: "Uptime do Sistema", value: "99.9%", trend: "Estável", detail: "Infraestrutura resiliente", icon: Activity, color: "text-emerald-600", bg: "bg-emerald-50" },
+    ];
 
     return (
-        <div className="w-full flex flex-col items-center">
-            {/* HERO SECTION */}
-            <section className="relative w-full min-h-[90vh] flex flex-col items-center justify-center px-6 overflow-hidden">
-                {/* Background Decorativo */}
-                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-full max-w-5xl h-96 bg-purple-600/10 blur-[180px] rounded-full -z-10 animate-pulse"></div>
-                <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-rose-500/10 blur-[120px] rounded-full -z-10"></div>
+        <div className="space-y-10 animate-slide">
+            {/* Seção de Boas-vindas */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div className="space-y-1.5">
+                    <h1 className="text-4xl font-black tracking-tighter outfit text-[#18181b]">Command Center</h1>
+                    <p className="text-sm font-medium text-[#a1a1aa]">Visão geral estratégica da sua infraestrutura de inteligência artificial.</p>
+                </div>
+                <div className="flex gap-3">
+                    <button className="px-6 h-12 bg-white border border-[#e4e4e7] rounded-xl text-[10px] font-black uppercase tracking-[0.2em] text-[#18181b] hover:bg-[#f4f4f5] transition-all">Exportar Relatórios</button>
+                    <button className="px-6 h-12 bg-[#18181b] text-white rounded-xl text-[10px] font-black uppercase tracking-[0.2em] hover:shadow-2xl hover:shadow-black/20 transition-all active:scale-[0.98]">Criar Novo Agente</button>
+                </div>
+            </div>
 
-                <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate="visible"
-                    className="max-w-5xl w-full text-center space-y-10"
-                >
-                    <motion.div variants={itemVariants} className="inline-flex items-center gap-3 px-5 py-2 rounded-full glass border-purple-500/20 text-[11px] font-black tracking-[0.4em] text-purple-400 uppercase">
-                        <Zap size={14} className="animate-pulse" />
-                        Next-Gen Animation Forge
-                    </motion.div>
-
-                    <motion.h1 variants={itemVariants} className="text-7xl md:text-9xl font-black tracking-tighter outfit leading-[0.85]">
-                        Deixe a IA <br />
-                        <span className="gradient-text italic">Dirigir.</span>
-                    </motion.h1>
-
-                    <motion.p variants={itemVariants} className="text-lg md:text-2xl text-white/40 max-w-2xl mx-auto leading-relaxed font-medium">
-                        Transforme prompts em animes cinematográficos com a orquestração de
-                        elite entre DeepSeek, Leonardo e Luma.
-                    </motion.p>
-
-                    <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-10">
-                        <Link
-                            href="/generator"
-                            className="w-full sm:w-auto px-10 h-16 bg-white text-black rounded-2xl font-black text-sm tracking-[0.2em] flex items-center justify-center gap-3 transition-all hover:scale-105 active:scale-95 group shadow-2xl shadow-white/10"
-                        >
-                            <Play fill="black" size={18} />
-                            INICIAR PRODUÇÃO
-                        </Link>
-                        <Link
-                            href="#concept"
-                            className="w-full sm:w-auto px-10 h-16 glass rounded-2xl font-black text-sm tracking-[0.2em] flex items-center justify-center gap-3 transition-all hover:bg-white/5 active:scale-95 text-white/60 hover:text-white"
-                        >
-                            VER CONCEITO
-                            <ArrowRight size={18} />
-                        </Link>
-                    </motion.div>
-                </motion.div>
-
-                {/* Grid Visual Animado (Simulação de Timeline) */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 1.1 }}
-                    animate={{ opacity: 0.3, scale: 1 }}
-                    transition={{ duration: 2 }}
-                    className="absolute -bottom-20 w-full max-w-7xl h-64 border-x border-t border-white/5 rounded-t-[100px] overflow-hidden -z-10"
-                >
-                    <div className="w-full h-full bg-gradient-to-b from-white/5 to-transparent flex items-end justify-center pb-12 gap-10">
-                        {[1, 2, 3, 4, 5, 6].map((i) => (
-                            <div key={i} className="w-40 h-56 bg-white/5 rounded-2xl border border-white/5 animate-float" style={{ animationDelay: `${i * 0.5}s` }}></div>
-                        ))}
-                    </div>
-                </motion.div>
-            </section>
-
-            {/* CONCEPT SECTION: Prompt to Anime */}
-            <section id="concept" className="w-full max-w-7xl py-40 px-6 space-y-32">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-                    <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1 }}
-                        className="space-y-8"
-                    >
-                        <div className="w-16 h-1 bg-gradient-to-r from-purple-500 to-rose-500 rounded-full"></div>
-                        <h2 className="text-5xl font-black tracking-tight outfit leading-tight text-white">
-                            Do Roteiro <br /> ao Frame Final.
-                        </h2>
-                        <p className="text-xl text-white/40 leading-relaxed max-w-md">
-                            Nossa tecnologia orquestra múltiplos modelos de IA para garantir consistência visual e drama cinematográfico.
-                        </p>
-
-                        <div className="space-y-6 pt-4">
-                            {[
-                                { icon: Cpu, title: "DeepSeek V3", desc: "Arquitetando o roteiro e diálogos." },
-                                { icon: Layers, title: "Leonardo Kinematic", desc: "Gerando a arte base de alta definição." },
-                                { icon: Zap, title: "Luma Dream Machine", desc: "Animação de 120 FPS para motion fluido." }
-                            ].map((step, i) => (
-                                <div key={i} className="flex gap-4 items-start group">
-                                    <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-purple-400 group-hover:bg-purple-500 group-hover:text-white transition-colors">
-                                        <step.icon size={20} />
-                                    </div>
-                                    <div>
-                                        <h4 className="font-bold text-white">{step.title}</h4>
-                                        <p className="text-[10px] text-white/20 uppercase font-black tracking-widest">{step.desc}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </motion.div>
-
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1 }}
-                        className="relative h-[600px] w-full editing-panel p-4 shadow-3xl overflow-hidden"
-                    >
-                        {/* Simulação de Preview IA */}
-                        <div className="w-full h-full bg-black/40 rounded-2xl flex flex-col items-center justify-center relative">
-                            <motion.div
-                                animate={{ opacity: [0.3, 1, 0.3] }}
-                                transition={{ repeat: Infinity, duration: 4 }}
-                                className="absolute inset-0 bg-gradient-to-tr from-purple-500/10 to-transparent"
-                            ></motion.div>
-                            <Terminal className="text-white/10 mb-4" size={48} />
-                            <span className="text-[10px] text-white/20 font-black tracking-[0.5em] uppercase">IA Processing Engine</span>
-
-                            {/* Overlay de Edição */}
-                            <div className="absolute bottom-6 left-6 right-6 h-2 bg-white/5 rounded-full overflow-hidden">
-                                <motion.div
-                                    initial={{ width: 0 }}
-                                    whileInView={{ width: "80%" }}
-                                    transition={{ duration: 3, repeat: Infinity }}
-                                    className="h-full bg-purple-500 shadow-[0_0_20px_rgba(168,85,247,0.5)]"
-                                ></motion.div>
+            {/* Grid de Estatísticas */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {stats.map((stat, i) => (
+                    <div key={i} className="stat-card group">
+                        <div className="flex items-center justify-between mb-8">
+                            <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center transition-all group-hover:scale-110 group-hover:rotate-3 duration-500 shadow-sm", stat.bg, stat.color)}>
+                                <stat.icon size={26} />
+                            </div>
+                            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-600 rounded-full text-[10px] font-black">
+                                <TrendingUp size={12} />
+                                {stat.trend}
                             </div>
                         </div>
-                    </motion.div>
+                        <div className="space-y-2">
+                            <h3 className="text-[10px] font-black uppercase tracking-[0.25em] text-[#a1a1aa] mb-1">{stat.label}</h3>
+                            <div className="text-4xl font-black tracking-tight outfit text-[#18181b]">{stat.value}</div>
+                            <div className="flex items-center justify-between pt-4 border-t border-[#f1f1f4] mt-4">
+                                <p className="text-[9px] font-black text-[#a1a1aa] uppercase tracking-wider">{stat.detail}</p>
+                                <ArrowUpRight size={14} className="text-[#e4e4e7] group-hover:text-[#18181b] transition-colors" />
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {/* Seção Inferior: Monitoramento e Ações */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-4">
+                <div className="lg:col-span-2 stat-card">
+                    <div className="flex items-center justify-between mb-12">
+                        <div>
+                            <h2 className="text-xl font-black outfit tracking-tight text-[#18181b]">Atividade de Automação</h2>
+                            <p className="text-sm text-[#a1a1aa] font-medium mt-1">Registros de execução em tempo real.</p>
+                        </div>
+                        <button className="text-[10px] font-black uppercase tracking-[0.3em] text-[#18181b]/30 hover:text-[#18181b] transition-all">Ver Histórico</button>
+                    </div>
+
+                    <div className="space-y-5">
+                        {[
+                            { name: "Agente Comercial #01", action: "Interação via WhatsApp finalizada.", time: "2m atrás" },
+                            { name: "Agente de Triagem #04", action: "42 novos leads processados.", time: "12m atrás" },
+                            { name: "Core System", action: "Atualização de segurança aplicada.", time: "45m atrás" }
+                        ].map((item, i) => (
+                            <div key={i} className="flex items-center gap-6 p-5 rounded-3xl hover:bg-[#fbfcfe] border border-[#f1f1f4]/50 hover:border-[#f1f1f4] transition-all group cursor-pointer shadow-sm hover:shadow-md">
+                                <div className="w-14 h-14 bg-[#f8fafc] rounded-2xl flex items-center justify-center text-[#a1a1aa] group-hover:bg-[#18181b] group-hover:text-white transition-all duration-300">
+                                    <Activity size={22} />
+                                </div>
+                                <div className="flex-1">
+                                    <h4 className="text-[15px] font-black outfit leading-none text-[#18181b]">{item.name}</h4>
+                                    <p className="text-sm text-[#a1a1aa] font-medium mt-2">{item.action}</p>
+                                </div>
+                                <span className="text-[11px] font-black text-[#cbd5e1]">{item.time}</span>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-            </section>
+
+                <div className="bg-[#18181b] rounded-[2.5rem] p-12 flex flex-col justify-between text-white shadow-2xl shadow-black/30 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-80 h-80 bg-white/[0.03] blur-[120px] rounded-full -mr-40 -mt-40"></div>
+                    <div className="space-y-8 relative z-10">
+                        <div className="w-16 h-16 bg-white/10 rounded-3xl flex items-center justify-center text-emerald-400">
+                            <Zap size={32} />
+                        </div>
+                        <div className="space-y-4">
+                            <h3 className="text-3xl font-black outfit leading-[1.1] tracking-tight">Potencialize sua operação com IA.</h3>
+                            <p className="text-base text-white/40 leading-relaxed font-medium">Configure fluxos automatizados que trabalham por você 24/7 com precisão absoluta.</p>
+                        </div>
+                    </div>
+                    <button className="w-full h-14 bg-white text-black rounded-2xl text-[10px] font-black uppercase tracking-[0.25em] mt-12 hover:bg-[#f4f4f5] transition-all transform hover:-translate-y-1 active:scale-95 shadow-xl relative z-10">Painel de Agentes</button>
+                </div>
+            </div>
         </div>
     );
 }

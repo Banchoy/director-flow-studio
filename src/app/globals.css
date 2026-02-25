@@ -1,119 +1,100 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #f8f9fa;
-  --card: #121212;
-  --card-foreground: #f8f9fa;
-  --popover: #0a0a0a;
-  --popover-foreground: #f8f9fa;
-  --primary: #a855f7;
-  /* Purple Neon */
-  --primary-foreground: #ffffff;
-  --secondary: #1a0b2e;
-  /* Deep Purple */
-  --secondary-foreground: #a855f7;
-  --muted: #1c1c1c;
-  --muted-foreground: #a1a1aa;
-  --accent: #fb7185;
-  /* Rose Neon */
-  --accent-foreground: #ffffff;
+  --background: #ffffff;
+  --foreground: #09090b;
+  --card: #ffffff;
+  --card-foreground: #09090b;
+  --popover: #ffffff;
+  --popover-foreground: #09090b;
+  --primary: #18181b;
+  --primary-foreground: #fafafa;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #18181b;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  --accent: #f4f4f5;
+  --accent-foreground: #18181b;
   --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: rgba(255, 255, 255, 0.05);
-  --input: rgba(255, 255, 255, 0.05);
-  --ring: #a855f7;
-  --radius: 1rem;
+  --destructive-foreground: #fafafa;
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --ring: #18181b;
+  --radius: 0.75rem;
 }
 
 body {
-  background-color: var(--background);
+  background-color: #fbfcff;
   color: var(--foreground);
-  font-family: 'Outfit', 'Inter', sans-serif;
-  overflow-x: hidden;
-  background-image:
-    radial-gradient(circle at 50% -20%, #1a0b2e 0%, transparent 50%),
-    radial-gradient(circle at 0% 100%, #101010 0%, transparent 50%);
-  background-attachment: fixed;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -0.01em;
 }
 
-.glass {
-  background: rgba(18, 18, 18, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+.outfit {
+  font-family: 'Outfit', sans-serif;
 }
 
-.neon-purple {
-  box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+/* Sidebar Styling */
+.sidebar-logo {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.05em;
 }
 
-.neon-rose {
-  box-shadow: 0 0 20px rgba(251, 113, 133, 0.2);
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.875rem;
+  border-radius: 0.625rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #52525b;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.sidebar-item:hover {
+  background-color: #f4f4f5;
+  color: #18181b;
+}
+
+.sidebar-item.active {
+  background-color: #18181b;
+  color: #ffffff;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Card Styling */
+.stat-card {
+  background: #ffffff;
+  border: 1px solid #f1f1f4;
+  border-radius: 1.25rem;
+  padding: 1.75rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+  border-color: #e4e4e7;
+  transform: translateY(-2px);
+}
+
+/* Gradient Text */
 .gradient-text {
-  background: linear-gradient(135deg, #ffffff 0%, #a855f7 50%, #fb7185 100%);
+  background: linear-gradient(135deg, #09090b 0%, #52525b 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.editing-panel {
-  background: #0f0f0f;
-  border: 1px solid rgba(255, 255, 255, 0.03);
-  border-radius: 1.5rem;
-}
-
-/* Framer Motion Utilities */
-.motion-safe-hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.motion-safe-hover:hover {
-  transform: translateY(-4px);
-  border-color: rgba(168, 85, 247, 0.3);
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
-}
-
-@keyframes float {
-  0% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-
-  100% {
-    transform: translateY(0px);
-  }
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-up {
-  animation: fadeInUp 0.4s ease-out forwards;
+.hero-gradient {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -121,10 +102,10 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 10px;
+  background: #e4e4e7;
+  border-radius: 20px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #444;
+  background: #d4d4d8;
 }

@@ -9,7 +9,12 @@ export async function generateContent(formData: FormData) {
     const { userId } = await auth();
     if (!userId) throw new Error("Não autorizado");
 
-    const briefing = formData.get("briefing") as string;
+    const rawBriefing = formData.get("briefing") as string;
+    const atmosphere = formData.get("atmosphere") as string;
+    const sceneCount = parseInt(formData.get("sceneCount") as string) || 3;
+
+    const briefing = atmosphere ? `Atmosfera: ${atmosphere}. Briefing: ${rawBriefing}` : rawBriefing;
+
     const settings = await getSettings();
 
     if (!settings || !settings.deepseekKey || !settings.leonardoKey) {
@@ -22,7 +27,7 @@ export async function generateContent(formData: FormData) {
     try {
         const result = await runCreationFlow({
             briefing,
-            sceneCount: 3, // Default para teste
+            sceneCount,
             apiKeys: {
                 deepseek: settings.deepseekKey,
                 leonardo: settings.leonardoKey,

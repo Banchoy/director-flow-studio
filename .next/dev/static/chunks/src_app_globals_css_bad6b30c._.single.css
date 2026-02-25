@@ -1,0 +1,35 @@
+/* [project]/src/app/globals.css [app-client] (css) */
+:root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --card: #141414;
+  --primary: #6366f1;
+  --primary-foreground: #fff;
+  --accent: #f43f5e;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: Outfit, sans-serif;
+}
+
+.glass {
+  -webkit-backdrop-filter: blur(12px);
+  background: #141414b3;
+  border: 1px solid #ffffff1a;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #6366f1 0%, #f43f5e 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
+input:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 2px #6366f133;
+}
+
+/*# sourceMappingURL=src_app_globals_css_bad6b30c._.single.css.map*/

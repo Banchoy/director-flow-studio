@@ -1,0 +1,39 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  settings  Setting?
+}
+
+model Setting {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Chaves de API (BYOK - Bring Your Own Key)
+  deepseekKey   String? // Motor de Roteiros (DeepSeek V3 - 5M tokens grátis)
+  elevenlabsKey String? // Geração de Voz (ElevenLabs - 10k chars gratuitos)
+  leonardoKey   String? // Imagens e Anime (Leonardo.ai - 150 tokens/dia)
+  lumaKey       String? // Animação de Vídeo (Luma Dream Machine Ray-2)
+
+  // Preferências do Estúdio de Anime
+  animeStyle  String  @default("shonen") // shonen | seinen | ghibli
+  isAnimeMode Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/src/app/globals.css"],"sourcesContent":["@import \"tailwindcss\";\r\n\r\n:root {\r\n  --background: #0a0a0a;\r\n  --foreground: #ededed;\r\n  --card: #141414;\r\n  --primary: #6366f1;\r\n  --primary-foreground: #ffffff;\r\n  --accent: #f43f5e;\r\n}\r\n\r\nbody {\r\n  background-color: var(--background);\r\n  color: var(--foreground);\r\n  font-family: 'Outfit', sans-serif;\r\n}\r\n\r\n.glass {\r\n  background: rgba(20, 20, 20, 0.7);\r\n  backdrop-filter: blur(12px);\r\n  -webkit-backdrop-filter: blur(12px);\r\n  border: 1px solid rgba(255, 255, 255, 0.1);\r\n}\r\n\r\n.gradient-text {\r\n  background: linear-gradient(135deg, #6366f1 0%, #f43f5e 100%);\r\n  -webkit-background-clip: text;\r\n  -webkit-text-fill-color: transparent;\r\n}\r\n\r\ninput:focus {\r\n  outline: none;\r\n  border-color: var(--primary);\r\n  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);\r\n}\r\n"],"names":[],"mappings":"AAEA;;;;;;;;;AASA;;;;;;AAMA;;;;;;AAOA;;;;;;AAMA"}}]
+}

@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@clerk/nextjs/server";
-import { prisma } from "@/lib/db";
+import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 
 export async function saveSettings(formData: FormData) {
@@ -20,7 +20,7 @@ export async function saveSettings(formData: FormData) {
 
     try {
         // Primeiro garante que o usuário existe no nosso DB
-        await prisma.user.upsert({
+        await db.user.upsert({
             where: { id: userId },
             update: {},
             create: {
@@ -30,7 +30,7 @@ export async function saveSettings(formData: FormData) {
         });
 
         // Salva ou atualiza as configurações
-        await prisma.setting.upsert({
+        await db.setting.upsert({
             where: { userId },
             update: {
                 deepseekKey,
@@ -65,7 +65,7 @@ export async function getSettings() {
     const { userId } = await auth();
     if (!userId) return null;
 
-    return await prisma.setting.findUnique({
+    return await db.setting.findUnique({
         where: { userId },
     });
 }
